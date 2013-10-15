@@ -5,6 +5,8 @@
         <h1>Edit Game <small>Go on, mark it complete!</small></h1>
     </div>
 
+    @include('_errors')
+
     <form action="{{ action('GamesController@handleEdit') }}" method="post" role="form">
         <input type="hidden" name="id" value="{{ $game->id }}">
         <input type="hidden" name="complete" value="0">

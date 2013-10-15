@@ -19,12 +19,20 @@ class GamesController extends BaseController
     public function handleCreate()
     {
         // Handle create form submission
-        $game = new Game;
-        $game->title =     Input::get('title');
-        $game->publisher = Input::get('publisher');
-        $game->complete =  Input::get('complete');
-        $game->save();
+        $rules = array(
+            'title'     => 'required',
+            'publisher' => 'required'
+        );
 
+        $validator = Validator::make(Input::all(), $rules);
+
+        if ($validator->fails()) {
+            return Redirect::back()
+                ->withInput()
+                ->withErrors($validator);
+        }
+
+        Game::create(Input::all());
         return Redirect::action('GamesController@index');
     }
 
@@ -37,10 +45,20 @@ class GamesController extends BaseController
     public function handleEdit()
     {
         // Handle edit form submission
+        $rules = array(
+            'title'     => 'required',
+            'publisher' => 'required'
+        );
+        $validator = Validator::make(Input::all(), $rules);
+
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator);
+        }
+
         $game = Game::findOrFail(Input::get('id'));
-        $game->title =     Input::get('title');
+        $game->title     = Input::get('title');
         $game->publisher = Input::get('publisher');
-        $game->complete =  Input::get('complete');
+        $game->complete  = Input::get('complete');
         $game->save();
 
         return Redirect::action('GamesController@index');
