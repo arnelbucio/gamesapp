@@ -7,21 +7,20 @@
 
     @include('_errors')
 
-    <form action="{{ action('GamesController@handleEdit') }}" method="post" role="form">
+    <form action="{{ action('GamesController@handleEdit') }}" method="post" id="edit_game" role="form">
         <input type="hidden" name="id" value="{{ $game->id }}">
-        <input type="hidden" name="complete" value="0">
 
         <div class="form-group">
             <label for="title">Title</label>
-            <input type="text" class="form-control" name="title" value="{{ $game->title }}">
+            <input type="text" class="form-control" name="title" id="title" value="{{ $game->title }}">
         </div>
         <div class="form-group">
             <label for="publisher">Publisher</label>
-            <input type="text" class="form-control" name="publisher" value="{{ $game->publisher }}">
+            <input type="text" class="form-control" name="publisher" id="publisher" value="{{ $game->publisher }}">
         </div>
         <div class="checkbox">
             <label for="complete">
-                <input type="checkbox" id="complete" name="complete" value="1" {{ $game->complete ? 'checked' : ''}}> Complete?
+                <input type="checkbox" id="complete" name="complete" id="complete" value="1" {{ $game->complete ? 'checked' : ''}}> Complete?
             </label>
         </div>
         <input type="submit" value="Save" class="btn btn-primary">

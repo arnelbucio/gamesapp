@@ -27,9 +27,8 @@ class GamesController extends BaseController
         $validator = Validator::make(Input::all(), $rules);
 
         if ($validator->fails()) {
-            return Redirect::back()
-                ->withInput()
-                ->withErrors($validator);
+            return Redirect::back()->withInput()
+                                   ->withErrors($validator);
         }
 
         Game::create(Input::all());
@@ -58,7 +57,7 @@ class GamesController extends BaseController
         $game = Game::findOrFail(Input::get('id'));
         $game->title     = Input::get('title');
         $game->publisher = Input::get('publisher');
-        $game->complete  = Input::get('complete');
+        $game->complete  = Input::get('complete', 0);
         $game->save();
 
         return Redirect::action('GamesController@index');
